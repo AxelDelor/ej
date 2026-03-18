@@ -7,11 +7,13 @@ import org.apache.logging.log4j.Logger;
 
 import ej.exceptions.IllegalBlocException;
 import ej.exceptions.PorteVerrouilleException;
+import lombok.Getter;
 
 public class Porte extends Bloc {
 
   private static Logger logger = LogManager.getLogger(Porte.class);
 
+  @Getter
   private boolean verrouillee;
 
   public Porte(final int largeur, final int longueur, final int hauteur, final boolean verrouillee)
@@ -19,10 +21,6 @@ public class Porte extends Bloc {
     super(largeur, longueur, hauteur);
     this.verrouillee = verrouillee;
     setCouleur(Couleur.BLEU);
-  }
-
-  public boolean estVerrouillee() {
-    return verrouillee;
   }
 
   public void verrouiller() throws PorteVerrouilleException {
@@ -36,11 +34,10 @@ public class Porte extends Bloc {
 
   public void forcerSerrure(Predicate<String> fonction) {
     String cleSecrete = "#secret123";
-    if (this.verrouillee) {
-      if (fonction.test(cleSecrete)){
-        this.verrouillee = false;
+    if (verrouillee) {
+      if (fonction.test(cleSecrete)) {
+        verrouillee = false;
       }
     }
-
   }
 }
