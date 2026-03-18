@@ -29,8 +29,6 @@ public class Kit {
   public void afficherKit() {
     System.out.println("Nombre de blocs dans le kit : " + blocs.size());
     System.out.println("Liste des mots clés du kit : ");
-    for(String motCle : motCles) {
-      System.out.println(motCle + " ");
-    }
+    motCles.forEach(System.out::println);
   }
 }

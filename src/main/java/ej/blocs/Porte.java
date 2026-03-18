@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ej.Main;
 import ej.exceptions.IllegalBlocException;
 import ej.exceptions.PorteVerrouilleException;
 
