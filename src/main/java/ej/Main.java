@@ -22,26 +22,35 @@ public class Main {
     try {
       Kit kitDeDemarrage = new Kit();
       System.out.println("Vous disposez d'un kit de démarrage");
-      System.out.println(
-          "Que souhaitez-vous afficher ?"
-              + "\n 1 - Les idées de construction"
-              + "\n 2 - Les différents blocs de chaque type et leur nombre");
-      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      String reponse = reader.readLine();
-      if (reponse.equals("1")) {
-        for (String construction : kitDeDemarrage.getMotCles()) {
-          System.out.println(construction);
+
+      boolean continuer = true;
+      while (continuer) {
+
+        System.out.println(
+            "Que souhaitez-vous afficher ?"
+                + "\n 1 - Les idées de construction"
+                + "\n 2 - Les différents blocs de chaque type et leur nombre"
+                + "\n 3 - Quitter");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String reponse = reader.readLine();
+        if (reponse.equals("1")) {
+          for (String construction : kitDeDemarrage.getMotCles()) {
+            System.out.println(construction);
+          }
+        } else if (reponse.equals("2")) {
+          Map<String, Integer> compteur = new HashMap<>();
+          for (IBloc bloc : kitDeDemarrage.getBlocs()) {
+            String type = bloc.getClass().getSimpleName();
+            compteur.put(type, compteur.getOrDefault(type, 0) + 1);
+          }
+          for (Map.Entry<String, Integer> entry : compteur.entrySet())
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        } else if (reponse.equals("3")) {
+          continuer = false;
+        } else {
+          System.out.println("Ce choix n'est pas reconnu, tapez 1 ou 2");
         }
-      } else if (reponse.equals("2")) {
-        Map<String, Integer> compteur = new HashMap<>();
-        for (IBloc bloc : kitDeDemarrage.getBlocs()) {
-          String type = bloc.getClass().getSimpleName();
-          compteur.put(type, compteur.getOrDefault(type, 0) + 1);
-        }
-        for (Map.Entry<String, Integer> entry : compteur.entrySet())
-          System.out.println(entry.getKey() + " : " + entry.getValue());
-      } else {
-        System.out.println("Ce choix n'est pas reconnu, tapez 1 ou 2");
+
       }
     } catch (IllegalBlocException e) {
       System.out.println("Impossible de construire le kit de démarrage");
